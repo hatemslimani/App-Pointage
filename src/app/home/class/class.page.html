@@ -1,0 +1,35 @@
+<ion-content>
+  <ion-slides pager="true" [options]="slideOpts" #slides>
+    <ion-slide *ngFor="let etage of etages">
+      <div class="dep">
+        <h1>
+          {{etage.nomBlock}} : {{etage.nomEtage}}
+        </h1>
+      </div>
+        <ion-list>
+          <ion-row>
+            <ion-col size="6" *ngFor="let salle of etage.salles">
+              <ion-item >
+                <ion-label>{{salle.nom_salle}}</ion-label>
+                <ion-checkbox slot="end" (ionChange)="change( salle.id,$event )" color="danger"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+    </ion-slide>
+    
+  </ion-slides>
+  <ion-fab vertical="end" horizontal="center">
+    <ion-fab-button size="large"><ion-icon name="reorder-four-outline"></ion-icon></ion-fab-button>  
+    <ion-fab-list side="end">
+      <ion-fab-button size="large">
+        <ion-icon name="chevron-forward-outline" (click)="next()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>  
+    <ion-fab-list side="start">
+      <ion-fab-button size="large">
+        <ion-icon name="chevron-back-outline" (click)="prev()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

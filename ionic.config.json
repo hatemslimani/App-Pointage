@@ -1,0 +1,7 @@
+{
+  "name": "pointage",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

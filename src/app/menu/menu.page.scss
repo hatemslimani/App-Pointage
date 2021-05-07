@@ -1,0 +1,14 @@
+ion-header {
+  ion-toolbar {
+    height: 150px;
+    --background: #007ac1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  ion-title {
+    padding-left: 85px;
+    color: #fff;
+  }
+}

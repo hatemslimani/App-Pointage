@@ -1,0 +1,36 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1" class="ion-text-center datetime">
+        <span> {{currentDate}} </span>
+        <span>{{ currentTime }} </span>
+        <p *ngIf="seance">{{seance.nom_Seance}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="blocks!=null"> 
+      <ion-col size="4"  *ngFor="let d of blocks">
+        <ion-card *ngIf="d.pointee==false" (click)="goToClass(d.id)">
+          <ion-card-content>
+            {{d.nom_block}}
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="d.pointee==true" (click)="pointagefait()" class="pointee">
+          <ion-card-content>
+            {{d.nom_block}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="error!=null">
+      <ion-col size="12" >
+        <ion-img src="assets/svg/Warning.svg"></ion-img>
+        <ion-label class="error">{{error}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

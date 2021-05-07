@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="openMenu()">
+      <ion-button class="bordered" fill="solid" color="light">
+        <ion-icon name="apps"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+    <ion-buttons slot="end" (click)="toNotification()">
+      <ion-button class="bordered"  fill="solid" color="light">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="primary" mode="ios" *ngIf="newProblem != 0">{{newProblem}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+  <ion-item routerLink="/home">
+    <ion-label lines="none">
+      <h1>ISET Sfax</h1>
+    </ion-label>
+  </ion-item>
+</ion-header>
+<ion-content>
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>

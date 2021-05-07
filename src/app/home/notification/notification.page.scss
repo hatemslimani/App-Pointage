@@ -1,0 +1,28 @@
+ion-content
+{
+    --background: #E1E2E1;
+    h1
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h2
+    {
+        color: black;
+        font-weight: 550;
+    }
+    .datetime
+    {
+        text-align: right;
+    }
+    p
+    {
+        font-size: 12px;
+    }
+    ion-row
+    {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}

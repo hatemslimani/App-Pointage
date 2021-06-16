@@ -35,9 +35,9 @@ export class AceuillPage implements OnInit {
     this.DepServ.getBlocks().subscribe(data => {
       this.blocks = data;
       this.error=null;
-    }, err => {
+    }, err => {      
       this.blocks=null;
-      this.error = err.error.message;
+      this.error = err;      
     })
   }
   goToClass(id) {
@@ -49,7 +49,7 @@ export class AceuillPage implements OnInit {
       this.error=null;
       event.target.complete();
     }, err => {
-      this.error = err.error.message;
+      this.error = err;
       this.blocks=null;
       event.target.complete();
     })

@@ -5,18 +5,38 @@
         <h1>Notifications</h1>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let problem of problems">
-      <ion-col size="12">
-        <ion-card>
-          <ion-card-content>
-            <h2>Problem De Pointage</h2>
-            <p> {{problem.message}} </p>
-            <div class="datetime">
-              <p>{{problem.datePointage}}  {{problem.timePointage}}</p>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+    <span *ngIf="show">
+      <ion-list *ngIf="listNewNotification.length !=0">
+        <ion-list-header class="ion-text-center" >
+          notifications récentes
+        </ion-list-header>
+  
+        <ion-item *ngFor="let notification of listNewNotification">
+          <ion-label>
+            <h2>{{notification.title}}</h2>
+            <h3>{{notification.msg}}</h3>
+            <p class="datetime">{{notification.updatedAt}}</p>
+          </ion-label>
+        </ion-item>  
+      </ion-list> 
+    </span>
+    <span *ngIf="show2">
+      <ion-list *ngIf="listOldNotification.length !=0">
+        <ion-list-header class="ion-text-center">
+          ancienne notification
+        </ion-list-header>
+  
+        <ion-item *ngFor="let notification of listOldNotification">
+          <ion-label>
+            <h2>{{notification.title}}</h2>
+            <h3>{{notification.msg}}</h3>
+            <p class="datetime">{{notification.updatedAt}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </span>
+      
+    
+    
   </ion-grid>
 </ion-content>

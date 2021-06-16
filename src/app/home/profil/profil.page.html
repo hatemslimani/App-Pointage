@@ -1,0 +1,71 @@
+<ion-content padding *ngIf="user"> 
+  <ion-card>
+    <ion-avatar>
+      <img src="../../../assets/img/avataaars.png">
+    </ion-avatar>
+    <ion-card-content>
+      <ion-grid fixed>
+        <ion-row class="ion-text-center">
+          <ion-col size="12">
+            <h2 text-center><ion-text color="dark"> {{user.nom}} </ion-text></h2>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Informations générales :</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="ChangeInfoPersonneller(infoPer.value )" #infoPer="ngForm" *ngIf="user.role=='ENSEIGNANT'">
+        <ion-text color="dark"> Nom & Prenom </ion-text>
+        <ion-input type="text"  name="nom" [(ngModel)]="user.nom" placeholder="Nom & Prenom"></ion-input>
+        <ion-button color="primary" type="submit" expand="block">Modifier</ion-button>
+      </form>
+      <form (ngSubmit)="ChangeInfoPersonneller(infoPer.value )" #infoPer="ngForm" *ngIf="user.role=='CONTROLLER'">
+        <ion-text color="dark"> Nom: </ion-text>
+        <ion-input type="text"  name="nom" [(ngModel)]="user.nom" placeholder="Nom"></ion-input>
+        <ion-text color="dark"> Prenom: </ion-text>
+        <ion-input type="text" name="prenom" [(ngModel)]="user.prenom" prenom placeholder="Prenom"></ion-input>
+        <ion-button color="primary" type="submit" expand="block">Modifier</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Changer mot de passe :</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="ChangePassword(changepsd)" #changepsd="ngForm">
+        <ion-text color="dark">Mot de passe actuel: </ion-text>
+        <ion-input type="password" name="actuelPassword" ngModel></ion-input>
+        <ion-text color="dark">Nouveau mot de passe: </ion-text>
+        <ion-input type="password" name="newPassword" ngModel ></ion-input>
+        <ion-text color="dark">Confirmer le nouveau mot de passe: </ion-text>
+        <ion-input type="password" name="cfNewPassword" ngModel></ion-input>
+        <ion-button color="primary"  type="submit" expand="block">Modifier</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!--<ion-card>
+    <ion-card-header>
+      <ion-card-title>Changer Email :</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="changeEmail(changeEml)" #changeEml="ngForm" id="changeEml">
+        <ion-text color="dark">Email: </ion-text>
+        <ion-input type="email" [ngModel]="user.userName" name="email" placeholder="Enter Input"></ion-input>
+        <ion-text color="dark">Confirmer l'Email: </ion-text>
+        <ion-input type="email" ngModel name="cfEmail" placeholder="Enter Input"></ion-input>
+        <ion-text color="dark">tapez mot de passe: </ion-text>
+        <ion-input type="password" ngModel name="password" placeholder="Enter Input"></ion-input>
+        <ion-button  color="primary" type="submit" expand="block">Modifier</ion-button>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>-->
+</ion-content>

@@ -6,15 +6,15 @@
       </ion-button>
       
     </ion-buttons>
-    <ion-buttons slot="end" (click)="toNotification()">
+    <ion-buttons slot="end" *ngIf="this.authService.getRole()=='ENSEIGNANT'" (click)="toNotification()">
       <ion-button class="bordered"  fill="solid" color="light">
         <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="primary" mode="ios" *ngIf="newProblem != 0">{{newProblem}}</ion-badge>
+        <ion-badge color="primary" mode="ios" *ngIf="nbNewNotification != 0">{{nbNewNotification}}</ion-badge>
       </ion-button>
     </ion-buttons>
     
   </ion-toolbar>
-  <ion-item routerLink="/home">
+  <ion-item (click)="goToAcceuil()">
     <ion-label lines="none">
       <h1>ISET Sfax</h1>
     </ion-label>

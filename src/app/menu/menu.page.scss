@@ -1,14 +1,25 @@
-ion-header {
-  ion-toolbar {
-    height: 150px;
-    --background: #007ac1;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+ion-menu
+{
+  --width:65%;
+  ion-header {
+    ion-toolbar {
+      height: 110px;
+      --background: #007ac1;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    }
+  
+    ion-title {
+      padding-left: 85px;
+      color: #fff;
+    }
   }
-
-  ion-title {
-    padding-left: 85px;
-    color: #fff;
+}
+ion-item
+{
+  ion-title
+  {
+    margin-left: -10;
   }
 }

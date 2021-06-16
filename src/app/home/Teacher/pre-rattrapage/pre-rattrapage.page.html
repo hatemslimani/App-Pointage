@@ -1,0 +1,65 @@
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Liste des pré-rattrapages</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-row style="background-color: #f8f8f8">
+    <ion-col size="1.5" style="background-color: #f8f8f8;">
+      <ion-icon color="success" size="large" name="add-circle" (click)="addPreRatt()"></ion-icon><br>
+    </ion-col>
+  </ion-row>
+  <div class="scrolling-wrapper">
+    <ion-row
+      style="border-bottom: groove; background-color: rgb(131, 32, 19); font-family:Verdana ; font-size: 12px; font-weight: bold; height: 45px;width: 160%; ">
+      <ion-col size="4">
+        <ion-label style="color: white; font-size: 10px;">Seane De<br>rattrapage</ion-label>
+      </ion-col>
+      <ion-col size="4">
+        <ion-label style="color: white; font-size: 10px;">Seance <br>d'absence</ion-label>
+      </ion-col>
+      <ion-col size="2">
+        <ion-label style="color: white; font-size: 9px;">Statut</ion-label>
+      </ion-col>
+      <ion-col size="2">
+        <ion-label style="color: white; font-size: 9px;">Supprimer</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let preratt of PreRattrappages" style="width: 160%;">
+      <ion-col size="4">
+        <p style="font-size: 10px; font-weight: bold;">{{preratt.dateRatt}} / {{preratt.nom_Seance}} <br> {{preratt.nom_salle}}
+        </p>
+      </ion-col>
+      <ion-col size="4">
+        <p style="font-size: 10px; font-weight: bold;">{{preratt.dateAbsence}} / {{preratt.abNom_Seance}} <br>
+          {{preratt.nom_niveau}} / {{preratt.abNom_salle}}</p>
+      </ion-col>
+      <ion-col size="2">
+        <p style="font-size: 10px; font-weight: bold; color: #00cc00;" *ngIf="preratt.status==1">Accepté</p>
+        <p style="font-size: 10px; font-weight: bold; color:#FF8000;" *ngIf="preratt.status==0">En attente</p>
+        <p style="font-size: 10px; font-weight: bold; color:#FF3333;" *ngIf="preratt.status==2">Refusé</p>
+      </ion-col>
+      <ion-col size="2">
+        <p style="font-size: 10px; font-weight: bold;">
+          <ion-icon color="danger" size="small" name="trash" (click)="removePreRatt(preratt.cod_rattrapage)"></ion-icon>
+        </p>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom" color="primary">
+        <ion-tab-button tab="profile">
+          <ion-icon name="arrow-back" routerLink="../../enseignant"></ion-icon>
+          <ion-label>Précedent</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="settings">
+          <ion-icon name="arrow-forward"></ion-icon>
+          <ion-label>Suivant</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemPointage } from 'src/app/Interface/ProblemPointageInterface';
+import { AuthServiceService } from 'src/app/service/authentification/auth-service.service';
 import { DepartementService } from 'src/app/service/departement.service';
 @Component({
   selector: 'app-notification',
@@ -8,14 +9,45 @@ import { DepartementService } from 'src/app/service/departement.service';
 })
 export class NotificationPage implements OnInit {
   problems:ProblemPointage[];
-  constructor(private DepServ: DepartementService) { }
+  listNewNotification=null;
+  listOldNotification:any;
+  show:boolean=false;
+  show2:boolean=false;
+  constructor(private DepServ: DepartementService,public authService:AuthServiceService) { }
 
   ngOnInit() {
     this.getAllProblemPointage();
+    if(this.authService.getRole()=="ENSEIGNANT"){
+      this.getNewNotifications()
+      this.getOldNotifications()
+    }
   }
   getAllProblemPointage() {
     this.DepServ.getAllProblemPointage().subscribe(data => {
       this.problems=data;
     })
   }
+  getNewNotifications()
+  {
+    this.DepServ.getNewNotification().subscribe(data=>{
+      console.log(data);
+      this.listNewNotification=data;
+      this.MarkVue(data);
+      this.show=true
+    })
+  }
+  getOldNotifications()
+  {
+    this.DepServ.getOldNotification().subscribe(data=>{
+      console.log(data);
+      this.listOldNotification=data;
+      this.show2=true
+    })
+  }
+  MarkVue(data)
+  {
+    this.DepServ.MarkVue(data).subscribe(data=>{
+    });
+  }
+
 }

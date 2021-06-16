@@ -34,4 +34,20 @@ export class DepartementService {
   {
     return this.http.get<number>(this.uri+"pointage/problem/new");
   }
+  getNewNotification()
+  {
+    return this.http.get(this.uri+"enseignant/getNewNotification");
+  }
+  getOldNotification()
+  {
+    return this.http.get(this.uri+"enseignant/getOldNotification");
+  }
+  MarkVue(listNotification)
+  {
+    return this.http.post(this.uri+"enseignant/MarkVue",listNotification);
+  }
+  getNbNewNotification():Observable<Number>
+  {
+    return this.http.get<Number>(this.uri+"notification/getNbNewNotification");
+  }
 }

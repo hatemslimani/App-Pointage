@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="color: black;">{{isUpdate ? 'Modifier' : 'Demande'}} rattrapage</ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="font-size: 15px;" color="danger" (click)="closeModal()">
+        <ion-icon size="large" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Remplissez ce formulaire s'il vous plait</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" id="formAddUser">
+              <ion-item>
+                <ion-label>Seance d'absence:</ion-label>
+                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idAbsence">
+                  <ion-select-option *ngFor="let seanceAb of SeanceAbsence" value="{{seanceAb.idAbsence}}">
+                    {{seanceAb.nomSeance}}/{{seanceAb.nomNivean}}/{{seanceAb.matier}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Date de rattrapage:</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" [yearValues]="customYearValues" min="{{now}}" ngModel
+                  name="dateRatt"    (ngModelChange)= "getSeance()"></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>Seance de rattrappage:</ion-label>
+                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSeance"
+                  (ngModelChange)="getFreeSalle(f.value.dateRatt,f.value.idSeance)">
+                  <ion-select-option *ngFor="let seance of listSeance" value="{{seance.id}}">
+                    {{seance.nom_Seance}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Salle:</ion-label>
+                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSalle">
+                  <ion-select-option *ngFor="let salle of  listFreeSalle" value="{{salle.id}}">{{salle.nom_salle}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button color="warning" full large type="submit" [disabled]="" (click)="presentToast()"
+                (click)="closeModal()" (click)="onSubmit()">
+                Valider
+              </ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

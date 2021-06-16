@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="color: black;">{{isUpdate ? 'Modifier' : 'Demande'}} pré-rattrapage</ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="font-size: 15px;" color="danger" (click)="closeModal()">
+        <ion-icon size="large" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Remplissez ce formulaire s'il vous plait</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" id="formAddUser">
+              <ion-item>
+                <ion-label position="floating">Date d'absence:</ion-label>
+                <ion-datetime [yearValues]="customYearValues"  ngModel
+                  name="dateAbsence" (ngModelChange)="getSeanceDenseignement(f.value.dateAbsence)" displayFormat="YYYY-MM-DD"  ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>Seance d'absence:</ion-label>
+                <ion-select okText="Choisir" class="myselect" cancelText="Annuler" ngModel name="idSeanceAbsence" style="width: 200px;"  >
+                  <ion-select-option *ngFor="let seance of listSeanceAbcense" value="{{seance.idSeanceEnseignement}}" style="font-size: 5px;"> 
+                      {{seance.matier  }} / {{seance.nomNivean}} / {{seance.nomSeance}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Date de pré-rattrapage:</ion-label>
+                <ion-datetime displayFormat="YYYY-MM-DD" [yearValues]="customYearValues" min="{{now}}" max="{{maxDatePreRatt(f.value.dateAbsence)}}" ngModel (ngModelChange)="getFreeSalle(f.value.dateRatt,f.value.idSeanceAbsence)"
+                  name="dateRatt"></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>Seance de pré-rattrappage:</ion-label>
+                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSeance">
+                  <ion-select-option *ngFor="let seance of listSeance"value="{{seance.id}}">
+                     {{seance.nom_Seance}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Salle:</ion-label>
+                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSalle" >
+                  <ion-select-option *ngFor="let freeSalle of listFreeSalle" value="{{freeSalle.id}}">
+                    {{freeSalle.nom_salle}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button color="warning" full large type="submit" (click)="presentToast()" (click)="closeModal()"
+                (click)="onSubmit()">
+                Valider
+              </ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

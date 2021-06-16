@@ -1,0 +1,30 @@
+ion-content {
+    --background: rgb(255, 253, 253);
+      ion-grid
+      {
+        position:relative;
+        top: 10%;
+        text-align: center;
+      }
+      ion-card-title
+      {
+        color: #0e0d0d;
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: 1.5px;
+      }
+      ion-button
+      {
+        justify-content: center;
+        width: 80%;
+        margin-top: 20px;
+      }
+      ion-card
+      {
+        box-shadow: 100px;
+      }
+
+      ion-card-header{
+          background-color: rgb(227, 229, 231);
+      }
+    }

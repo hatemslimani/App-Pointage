@@ -25,4 +25,13 @@ ion-content
         margin-top: 0px;
         margin-bottom: 0px;
     }
+    ion-list-header
+    {
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        text-decoration: underline;
+        font-size: 18px;
+        font-weight: 800;
+    }
 }

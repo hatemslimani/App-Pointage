@@ -19,7 +19,18 @@
     </ion-slide>
     
   </ion-slides>
-  <ion-fab vertical="end" horizontal="center">
+  <ion-fab vertical="end" horizontal="end">  
+      <ion-fab-button size="large">
+        <ion-icon name="chevron-forward-outline" (click)="next()"></ion-icon>
+      </ion-fab-button>  
+  </ion-fab>
+  <ion-fab vertical="end" horizontal="start">
+      <ion-fab-button size="large">
+        <ion-icon name="chevron-back-outline" (click)="prev()"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+
+  <!--<ion-fab vertical="end" horizontal="center">
     <ion-fab-button size="large"><ion-icon name="reorder-four-outline"></ion-icon></ion-fab-button>  
     <ion-fab-list side="end">
       <ion-fab-button size="large">
@@ -31,5 +42,5 @@
         <ion-icon name="chevron-back-outline" (click)="prev()"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-  </ion-fab>
+  </ion-fab>-->
 </ion-content>

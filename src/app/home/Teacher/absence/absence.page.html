@@ -8,10 +8,10 @@
     <ion-row 
       style="border-bottom: groove; background-color: rgb(131, 32, 19); font-family:Verdana ; font-size: 15px; font-weight: bold; height: 40px;width: 160%; ">
       <ion-col size="2">
-        <ion-label style="color: white; font-size: 10px;">Date absence</ion-label>
+        <ion-label style="color: white; font-size: 10px;">Date d'absence</ion-label>
       </ion-col>
       <ion-col size="2">
-        <ion-label style="color: white; font-size: 10px;">Seance</ion-label>
+        <ion-label style="color: white; font-size: 10px;">Séance</ion-label>
       </ion-col>
       <ion-col size="2">
         <ion-label style="color: white; font-size: 10px;">Groupe</ion-label>
@@ -27,9 +27,6 @@
           <ion-col size="2">
             <p style="font-size: 10px; font-weight: bold;">{{absence.nomSeance}}</p>
           </ion-col>
-          <!-- <ion-col col-4>
-          <p style="font-size: 10px; font-weight: bold;">{{ratt.nom_niveau}}</p>
-        </ion-col> -->
           <ion-col size="2">
             <p style="font-size: 10px; font-weight: bold;">{{absence.nomNivean}}</p>
           </ion-col>
@@ -39,19 +36,3 @@
         </ion-row>
   </div>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-tabs>
-      <ion-tab-bar slot="bottom" color="primary">
-        <ion-tab-button tab="profile">
-          <ion-icon name="arrow-back" routerLink="../../enseignant"></ion-icon>
-          <ion-label>Précedent</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="settings">
-          <ion-icon name="arrow-forward"></ion-icon>
-          <ion-label>Suivant</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-toolbar>
-</ion-footer>

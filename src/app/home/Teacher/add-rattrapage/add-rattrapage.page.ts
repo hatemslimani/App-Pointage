@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalController,ToastController } from '@ionic/angular';
 import { RattrapageService,Rattrapage } from 'src/app/service/remplacement/rattrapage.service';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-add-rattrapage',
   templateUrl: './add-rattrapage.page.html',
@@ -14,8 +14,6 @@ export class AddRattrapagePage implements OnInit {
   now = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0');
   @Input() preratt: Rattrapage;
   isUpdate = false;
-
-  //data to be updated
   date = {
   dateabs: '',
   dateratt: '',
@@ -23,8 +21,6 @@ export class AddRattrapagePage implements OnInit {
   seanceabs: '',
   seanceratt: ''
   };
-
-
   sprinerName:string;
   isHidden: boolean = true;
   listGroups: any;
@@ -39,46 +35,42 @@ export class AddRattrapagePage implements OnInit {
   dateRatt:any;
   idSeance;
   SeanceAbsence;
-
   DateAbscence :any;
-
   constructor(
     private RattrapageServ: RattrapageService,
     private modalCrtl: ModalController,
-    public toastController: ToastController
-
+    public toastController: ToastController,
+    private datePipe: DatePipe
     ) { }
 
   ngOnInit() {
     this.getSeanceAbsence();
    }
-
-
-
   closeModal(){
     this.modalCrtl.dismiss(null, 'closed');
   }
-
   onSubmit(value) {
-    this.RattrapageServ.create(value).subscribe(response => console.log(response)
-    )
+    value.dateRatt=this.datePipe.transform(value.dateRatt, 'yyyy-MM-dd')
+    this.RattrapageServ.create(value).subscribe(response => {
+      this.closeModal()
+      this.presentToast()
+    })
   }
-
   getSeanceAbsence()
   {
     this.RattrapageServ.getSeanceAbsence().subscribe(d =>{
       this.SeanceAbsence=d;
-      
     })
   }
-
-  getSeance() {
-    this.RattrapageServ.getSeance().subscribe(data => {
+  getSeance(dateRatt,idAbsence) {
+    this.RattrapageServ.getSeance(this.datePipe.transform(dateRatt, 'yyyy-MM-dd'),idAbsence).subscribe(data => {
        this.listSeance = data;       
+     },err=>{
+      this.presentToastt(err);
      })
     }
-    getFreeSalle(dateRatt, idSeance) {     
-      this.RattrapageServ.getFreeSalle(dateRatt, idSeance).subscribe(data => {
+    getFreeSallePre(dateRatt, idSeance) {     
+      this.RattrapageServ.getFreeSallePre(this.datePipe.transform(dateRatt, 'yyyy-MM-dd'), idSeance).subscribe(data => {
         this.listFreeSalle = data;          
       })
     }
@@ -89,5 +81,11 @@ export class AddRattrapagePage implements OnInit {
       });
       toast.present();
     }
-
+    async presentToastt(msg) {
+      const toast = await this.toastController.create({
+        message: msg,
+        duration: 2500
+      });
+      toast.present();
+    }
 }

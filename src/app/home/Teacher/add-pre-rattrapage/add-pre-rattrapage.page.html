@@ -20,7 +20,7 @@
             <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" id="formAddUser">
               <ion-item>
                 <ion-label position="floating">Date d'absence:</ion-label>
-                <ion-datetime [yearValues]="customYearValues"  ngModel
+                <ion-datetime [yearValues]="customYearValues"  [(ngModel)]="dateAbsence"
                   name="dateAbsence" (ngModelChange)="getSeanceDenseignement(f.value.dateAbsence)" displayFormat="YYYY-MM-DD"  ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -33,13 +33,13 @@
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Date de pré-rattrapage:</ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" [yearValues]="customYearValues" min="{{now}}" max="{{maxDatePreRatt(f.value.dateAbsence)}}" ngModel (ngModelChange)="getFreeSalle(f.value.dateRatt,f.value.idSeanceAbsence)"
+                <ion-datetime displayFormat="YYYY-MM-DD" [yearValues]="customYearValues" min="{{MinDatePreRatt()}}" max="{{maxDatePreRatt(f.value.dateAbsence)}}" ngModel (ngModelChange)="getPreSeancesPossibles(f.value.dateRatt,f.value.idSeanceAbsence)"
                   name="dateRatt"></ion-datetime>
               </ion-item>
               <ion-item>
                 <ion-label>Seance de pré-rattrappage:</ion-label>
-                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSeance">
-                  <ion-select-option *ngFor="let seance of listSeance"value="{{seance.id}}">
+                <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSeance" (ngModelChange)="getFreeSallePre(f.value.dateRatt,f.value.idSeance)">
+                  <ion-select-option *ngFor="let seance of listSeance"value="{{seance.id}}" >
                      {{seance.nom_Seance}}
                   </ion-select-option>
                 </ion-select>
@@ -52,8 +52,7 @@
                   </ion-select-option>
                 </ion-select>
               </ion-item>
-              <ion-button color="warning" full large type="submit" (click)="presentToast()" (click)="closeModal()"
-                (click)="onSubmit()">
+              <ion-button color="warning" full large type="submit">
                 Valider
               </ion-button>
             </form>

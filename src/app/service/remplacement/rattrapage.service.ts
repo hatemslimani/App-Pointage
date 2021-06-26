@@ -23,39 +23,26 @@ export class RattrapageService {
 
   private url = 'http://localhost:9191/';
   constructor(private http:HttpClient,private route:Router) { }
-  
- 
-
-  getSeance()
+  getSeance(dateRatt,idAbsence)
   {
-    return this.http.get(this.url+"enseignant/seance");
+    return this.http.get(this.url+"enseignant/getPreSeancesPossibles/"+dateRatt+"/"+idAbsence);
   }
-
-
-  getFreeSalle(dateRatt,idSeance)
+  getFreeSallePre(dateRatt,idSeance)
   {
-    return this.http.get(this.url+"remplacement/freeSalle/"+dateRatt+"/"+idSeance);
+    return this.http.get(this.url+"remplacement/getFreeSallePre/"+dateRatt+"/"+idSeance);
   }
-
   getSeanceAbsence(){
     return this.http.get(this.url+"enseignant/getSeanceAbsence");
-
   }
-
   getRatt()
   {
     return this.http.get<[Rattrapage]>(this.url + 'enseignant/getRattrapages');
   }
-
-  create(ratt){
-    console.log(ratt);
-    
+  create(ratt){   
     return this.http.post(this.url+ "enseignant/addRattrapage", ratt);
   }
-
   update(preratt: Rattrapage, id: string){
     return this.http.put(this.url + 'enseignantPreRatt/updateEnseignantPreRatt' + id, preratt);
-
   }
   remove(id)
   {

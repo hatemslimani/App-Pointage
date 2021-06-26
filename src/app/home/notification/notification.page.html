@@ -8,9 +8,8 @@
     <span *ngIf="show">
       <ion-list *ngIf="listNewNotification.length !=0">
         <ion-list-header class="ion-text-center" >
-          Notifications récentes
+          Récentes notifications 
         </ion-list-header>
-  
         <ion-item *ngFor="let notification of listNewNotification">
           <ion-label>
             <h2>{{notification.title}}</h2>
@@ -23,9 +22,8 @@
     <span *ngIf="show2">
       <ion-list *ngIf="listOldNotification.length !=0">
         <ion-list-header class="ion-text-center">
-          Notifications anciennes
+           Anciennes notifications
         </ion-list-header>
-  
         <ion-item *ngFor="let notification of listOldNotification">
           <ion-label>
             <h2>{{notification.title}}</h2>
@@ -35,8 +33,5 @@
         </ion-item>
       </ion-list>
     </span>
-      
-    
-    
   </ion-grid>
 </ion-content>

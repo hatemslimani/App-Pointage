@@ -6,10 +6,26 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-menu-toggle *ngFor="let p of pages">
-        <ion-item (click)="onMenuItem(p)">
-          <ion-icon [name]="p.icone" slot="start"></ion-icon>
-          <ion-title>{{p.titre}}</ion-title>
+      <ion-menu-toggle>
+        <ion-item *ngIf="this.authService.getRole()=='CONTROLLER'" [routerLink]="['/home/aceuil']">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          <ion-title>Accueil</ion-title>
+        </ion-item>
+        <ion-item *ngIf="this.authService.getRole()=='ENSEIGNANT'" [routerLink]="['/home/teacher']">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          <ion-title>Accueil</ion-title>
+        </ion-item>
+        <ion-item *ngIf="this.authService.getRole()=='ENSEIGNANT'" [routerLink]="['/home/notification']">
+          <ion-icon name="notifications-outline" slot="start"></ion-icon>
+          <ion-title>Notification</ion-title>
+        </ion-item>
+        <ion-item [routerLink]="['/home/profil']">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          <ion-title>Profil</ion-title>
+        </ion-item>
+        <ion-item (click)="this.authService.logoutUser()">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          <ion-title>Déconnexion</ion-title>
         </ion-item>
       </ion-menu-toggle>
     </ion-list>

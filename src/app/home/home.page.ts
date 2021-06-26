@@ -18,16 +18,11 @@ export class HomePage {
     if(this.authService.getRole()=="ENSEIGNANT"){
       setInterval(() => {
         this.DepServ.getNbNewNotification().subscribe(data=>{
-          console.log(data);
           this.nbNewNotification=data;
         })
       },1000)
       
-    }
-    /*setInterval(() => {
-      this.getNewProblemPointage()
-    },1000)*/
-    
+    }    
   }
 
   openMenu()
@@ -37,12 +32,6 @@ export class HomePage {
   toNotification()
   {
     this.route.navigate(['/home/notification'])
-  }
-  getNewProblemPointage()
-  {
-    this.DepServ.getNbNewProblemPointage().subscribe(data=>{
-      this.newProblem=data;
-    })
   }
   goToAcceuil()
   {

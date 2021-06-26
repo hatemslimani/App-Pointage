@@ -62,15 +62,15 @@ export class AuthServiceService {
   }
   ChangeInfoPersonneller(infoPer)
   {
-    return this.http.post(this.uri+"ChangeInfoPer",infoPer);
+    return this.http.post<any>(this.uri+"ChangeInfoPer",infoPer);
   }
   ChangePassword(info)
   {
-    return this.http.post(this.uri+"ChangePassword",info);
+    return this.http.post<any>(this.uri+"ChangePassword",info);
   }
   ChangeEmail(info)
   {
-    return this.http.post(this.uri+"ChangeEmail",info);
+    return this.http.post<any>(this.uri+"ChangeEmail",info);
   }
   updateToken(t)
   {

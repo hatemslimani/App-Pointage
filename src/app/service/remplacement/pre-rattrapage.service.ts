@@ -25,34 +25,26 @@ export class PreRattrapageService {
   {
     return this.http.get(this.url+"enseignantPreRatt/getPrerattrapageById/"+id);
   }
- 
-
   getSeance()
   {
     return this.http.get(this.url+"enseignant/seance");
   }
-
-
   getFreeSalle(dateRatt,idSeance)
   {
     return this.http.get(this.url+"remplacement/freeSalle/"+dateRatt+"/"+idSeance);
   }
-
-
   getPreRatt()
   {
     return this.http.get<[PreRattrapage]>(this.url + 'enseignant/getPreRattrapages');
   }
-
   create(preratt){
+    console.log(preratt);
+    
     return this.http.post(this.url+ "enseignant/addPreRattrapage", preratt);
   }
-
   update(preratt: PreRattrapage, id: string){
     return this.http.put(this.url + 'enseignantPreRatt/updateEnseignantPreRatt' + id, preratt);
-
   }
-
   remove(id)
   {
     return this.http.delete(this.url + 'enseignant/deleteEnseignantPreRatt/' + id);
@@ -64,5 +56,13 @@ export class PreRattrapageService {
   getSeanceDenseignement(dateAbsence)
   {
     return this.http.get(this.url+"enseignant/SeanceDenseignement/"+dateAbsence);
+  }
+  getPreSeancesPossibles(dateRatt, idSeance)
+  {
+    return this.http.get(this.url+"enseignant/getSeancesPossibles/"+dateRatt+"/"+idSeance);
+  }
+  getFreeSallePre(dateRatt,idSeance)
+  {
+    return this.http.get(this.url+"remplacement/getFreeSallePre/"+dateRatt+"/"+idSeance);
   }
 }

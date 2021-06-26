@@ -57,14 +57,6 @@ export class ClassPage implements OnInit {
     if (0 != index ) {
       this.slides.slidePrev();
     }
-    else
-    {
-      const toast = await this.toastController.create({
-        message: 'debut ',
-        duration: 2000
-      });
-      toast.present();
-    }
   }
   getEtagesByBlock() {
     this.DepServ.getEtagesByBlock(this.idBlock).subscribe(data => {
@@ -89,6 +81,8 @@ export class ClassPage implements OnInit {
   storePointage()
   {
     this.DepServ.sendPointage(this.idBlock,this.pointage).subscribe(data=>{
+      this.route.navigate(["/home/aceuil"]);
+    },err=>{
       this.route.navigate(["/home/aceuil"]);
     });
   }

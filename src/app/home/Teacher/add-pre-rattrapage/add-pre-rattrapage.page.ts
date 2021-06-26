@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { PreRattrapageService, PreRattrapage } from 'src/app/service/remplacement/pre-rattrapage.service';
 import { DatePipe } from '@angular/common';
+import { AuthServiceService } from 'src/app/service/authentification/auth-service.service';
 
 @Component({
   selector: 'app-add-pre-rattrapage',
@@ -15,18 +16,9 @@ export class AddPreRattrapagePage implements OnInit {
   now = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0');
   @Input() id: number;
   isUpdate = false;
-
-  //data to be updated
-  /*data = {
-  dateabs: null,
-  dateratt: null,
-  niveau: null,
-  seanceabs: null,
-  seanceratt: null
-  };*/
   data: any
 
-
+  dateAbsence;
   sprinerName: string;
   isHidden: boolean = true;
   listGroups: any;
@@ -42,50 +34,48 @@ export class AddPreRattrapagePage implements OnInit {
   idSeance
   listNiveau;
   DateAbscence: any;
-
   constructor(
     private PreRattrapageServ: PreRattrapageService,
     private modalCrtl: ModalController,
     public toastController: ToastController,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
 
   ) { }
-
   ngOnInit() {
   }
   getPrerattrapageById(id) {
     this.PreRattrapageServ.getPrerattrapageById(id).subscribe(d => {
       this.data = d;
-
     })
   }
-
-  getAllPreRatt() {
-    this.PreRattrapageServ.getPreRatt().subscribe(response => {
-      this.PreRattrappages = response;
-      console.log(response);
-
-    })
-  }
-
-
   closeModal() {
     this.modalCrtl.dismiss(null, 'closed');
-
   }
-
   onSubmit(value) {
-    console.log(value);
-    this.getAllPreRatt();
-    this.PreRattrapageServ.create(value).subscribe(response => console.log(response)
+    
+    if(value.dateAbsence=="" || value.dateRatt=="" || value.idSalle=="" || value.idSeance=="" || value.idSeanceAbsence=="")
+    {
+      this.presentToastt("tous les champs sont obligatoires","danger")
+      return false;
+    }
+    value.dateAbsence=this.datePipe.transform(value.dateAbsence, 'yyyy-MM-dd')
+    value.dateRatt=this.datePipe.transform(value.dateRatt, 'yyyy-MM-dd')
+    this.PreRattrapageServ.create(value).subscribe(response =>
+    {
+       this.closeModal();
+       this.presentToast();
+    },err=>{
+        this.presentToastt(err,"danger")
+      }
     )
   }
+  getPreSeancesPossibles(dateRatt, idSeance)
+  {
 
-  getSeance() {
-    this.PreRattrapageServ.getSeance().subscribe(data => {
+    this.PreRattrapageServ.getPreSeancesPossibles(this.datePipe.transform(dateRatt, 'yyyy-MM-dd'),idSeance).subscribe(data => {
       this.listSeance = data;
-      console.log(data);
-
+    },err=>{
+      this.presentToastt(err,"danger")
     })
   }
 
@@ -109,30 +99,28 @@ export class AddPreRattrapagePage implements OnInit {
   getNiveau() {
     this.PreRattrapageServ.getNiveau().subscribe(data => {
       this.listNiveau = data;
-      console.log(data);
-
-
     })
   }
 
-  getFreeSalle(dateRatt, idSeance) {
-    this.PreRattrapageServ.getFreeSalle(dateRatt, idSeance).subscribe(data => {
+  getFreeSallePre(dateRatt, idSeance) {
+    this.PreRattrapageServ.getFreeSallePre(this.datePipe.transform(dateRatt, 'yyyy-MM-dd'), idSeance).subscribe(data => {
       this.listFreeSalle = data;
-      console.log(data);
     })
   }
   getSeanceDenseignement(dateAbsence) {
-    console.log(this.datePipe.transform(dateAbsence, 'yyyy-MM-dd'));
     this.PreRattrapageServ.getSeanceDenseignement(this.datePipe.transform(dateAbsence, 'yyyy-MM-dd')).subscribe(data => {
-      console.log(data);
       this.listSeanceAbcense = data;
     },err=>{
       this.presentToastt(err,'danger')
     })
   }
-  maxDatePreRatt(dateAbsence)
+  maxDatePreRatt()
+  {if(this.dateAbsence)
+    return this.datePipe.transform(new Date(new Date(this.dateAbsence).getTime()  - (1000 * 60 * 60 * 24)), 'yyyy-MM-dd');;
+  }
+  MinDatePreRatt()
   {
-    return dateAbsence;
+    return this.datePipe.transform(new Date(new Date().getTime()  + (1000 * 60 * 60 * 24)), 'yyyy-MM-dd');
   }
 
 }

@@ -16,7 +16,7 @@ export class NotificationPage implements OnInit {
   constructor(private DepServ: DepartementService,public authService:AuthServiceService) { }
 
   ngOnInit() {
-    this.getAllProblemPointage();
+   // this.getAllProblemPointage();
     if(this.authService.getRole()=="ENSEIGNANT"){
       this.getNewNotifications()
       this.getOldNotifications()
@@ -30,7 +30,6 @@ export class NotificationPage implements OnInit {
   getNewNotifications()
   {
     this.DepServ.getNewNotification().subscribe(data=>{
-      console.log(data);
       this.listNewNotification=data;
       this.MarkVue(data);
       this.show=true
@@ -39,7 +38,6 @@ export class NotificationPage implements OnInit {
   getOldNotifications()
   {
     this.DepServ.getOldNotification().subscribe(data=>{
-      console.log(data);
       this.listOldNotification=data;
       this.show2=true
     })

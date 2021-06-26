@@ -19,9 +19,11 @@ export class AceuillPage implements OnInit {
     setInterval(() => {
       this.getTime();
     })
+    
+    
   }
   getTime() {
-    this.currentDate = new Date().getDate() + " / " + new Date().getMonth() + " / " + new Date().getFullYear();
+    this.currentDate = new Date().getDate() + " / " + (new Date().getMonth()+1) + " / " + new Date().getFullYear();
     this.currentTime = new Date().getHours() + " : " + new Date().getMinutes() + " : " + new Date().getSeconds();
   }
   ngOnInit() {
@@ -58,7 +60,7 @@ export class AceuillPage implements OnInit {
   async pointagefait()
   {
     const toast = await this.toastController.create({
-      message: 'Pointage fait avec success ',
+      message: 'Pointage realisée ',
       duration: 2000
     });
     toast.present();

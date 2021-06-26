@@ -32,7 +32,6 @@ export class PreRattrapagePage implements OnInit {
       duration: 5000,
       animated: false,
     });
-
     this.alertCtrl.create({
       header: 'Supprimer',
       message: ' Etes-vous sur de supprimer ce pré-rattrapage !',

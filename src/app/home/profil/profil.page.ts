@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, NgForm } from '@angular/forms';
 import { User } from 'src/app/Interface/IUser';
 import { AuthServiceService } from 'src/app/service/authentification/auth-service.service';
-
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.page.html',
@@ -10,7 +10,7 @@ import { AuthServiceService } from 'src/app/service/authentification/auth-servic
 })
 export class ProfilPage implements OnInit {
   user:User;
-  constructor(private authService:AuthServiceService) { }
+  constructor(private authService:AuthServiceService,public toastController: ToastController) { }
 
   ngOnInit() {
     this.getUser()
@@ -18,7 +18,6 @@ export class ProfilPage implements OnInit {
   getUser()
   {
     this.authService.getUser().subscribe(data=>{
-      console.log(data);
       this.user=data;
     })
   }
@@ -40,8 +39,9 @@ export class ProfilPage implements OnInit {
       }
     }
     
-    this.authService.ChangeInfoPersonneller(user1).subscribe(() => {
+    this.authService.ChangeInfoPersonneller(user1).subscribe(data => {
       this.getUser();
+      this.afficherMsg(data.message)
     })
   }
   ChangePassword(value:NgForm) {
@@ -52,9 +52,9 @@ export class ProfilPage implements OnInit {
     }
     this.authService.ChangePassword(user1).subscribe((data) => {
       value.reset();
-      console.log(data)
+      this.afficherMsg(data.message)
     }, err => {
-      console.log(err)
+      this.afficherMsg(err)
     })
   }
   changeEmail(value:NgForm) {
@@ -64,15 +64,20 @@ export class ProfilPage implements OnInit {
       password: value.value.password
     }
     this.authService.ChangeEmail(user1).subscribe((data) => {
-      console.log(data);
-      
       value.reset();
-      this.authService.updateToken(data);
       this.getUser();
-      console.log(data)
+      this.afficherMsg(data.message)
     }, err => {
-      console.log(err)
+      this.afficherMsg(err)
     })
     
+  }
+  async afficherMsg(msg)
+  {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 }

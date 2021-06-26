@@ -28,12 +28,12 @@
               <ion-item>
                 <ion-label position="floating">Date de rattrapage:</ion-label>
                 <ion-datetime displayFormat="MM/DD/YYYY" [yearValues]="customYearValues" min="{{now}}" ngModel
-                  name="dateRatt"    (ngModelChange)= "getSeance()"></ion-datetime>
+                  name="dateRatt"    (ngModelChange)="getSeance(f.value.dateRatt,f.value.idAbsence)"></ion-datetime>
               </ion-item>
               <ion-item>
                 <ion-label>Seance de rattrappage:</ion-label>
                 <ion-select okText="Choisir" cancelText="Annuler" ngModel name="idSeance"
-                  (ngModelChange)="getFreeSalle(f.value.dateRatt,f.value.idSeance)">
+                  (ngModelChange)="getFreeSallePre(f.value.dateRatt,f.value.idSeance)">
                   <ion-select-option *ngFor="let seance of listSeance" value="{{seance.id}}">
                     {{seance.nom_Seance}}</ion-select-option>
                 </ion-select>
@@ -45,8 +45,7 @@
                   </ion-select-option>
                 </ion-select>
               </ion-item>
-              <ion-button color="warning" full large type="submit" [disabled]="" (click)="presentToast()"
-                (click)="closeModal()" (click)="onSubmit()">
+              <ion-button color="warning" full large type="submit" [disabled]="" >
                 Valider
               </ion-button>
             </form>

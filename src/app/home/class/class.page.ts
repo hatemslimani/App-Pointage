@@ -3,6 +3,8 @@ import { IonSlides } from '@ionic/angular';
 import { ActivatedRoute,Router } from '@angular/router';
 import { DepartementService } from 'src/app/service/departement.service';
 import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+
 @Component({
   selector: 'app-class',
   templateUrl: './class.page.html',
@@ -15,7 +17,7 @@ export class ClassPage implements OnInit {
   etages: any;
   slidesLeng: number;
   pointage: any[] = [];
-  constructor(private actRroute: ActivatedRoute, private DepServ: DepartementService,public toastController: ToastController,private route: Router) {
+  constructor(public loadingController: LoadingController,private actRroute: ActivatedRoute, private DepServ: DepartementService,public toastController: ToastController,private route: Router) {
     this.actRroute.queryParams.subscribe((res) => {
       this.idBlock = res.idBlock;
     });
@@ -78,11 +80,18 @@ export class ClassPage implements OnInit {
       }
     }
   }
-  storePointage()
+  async storePointage()
   {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...'
+    });
+    await loading.present();
     this.DepServ.sendPointage(this.idBlock,this.pointage).subscribe(data=>{
+      loading.dismiss();
       this.route.navigate(["/home/aceuil"]);
     },err=>{
+      loading.dismiss();
       this.route.navigate(["/home/aceuil"]);
     });
   }

@@ -34,4 +34,9 @@ ion-slides {
   ion-button{
     margin-top: 25px;
   }
+  .my-custom-class {
+    --background: #222;
+    --spinner-color: #fff;
   
+    color: #fff;
+  }
